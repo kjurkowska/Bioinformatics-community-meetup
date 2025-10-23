@@ -10,34 +10,86 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://your-login.github.io/meetup/" />
   <style>
-    :root { --bg:#0f172a; --card:#111827; --txt:#e5e7eb; --muted:#9ca3af; --acc:#22d3ee; }
-    *{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#0b1220, #0f172a); color:var(--txt); font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif; line-height:1.6}
-    a{color:var(--acc); text-decoration:none} a:hover{text-decoration:underline}
+    /* ===== Theme: white–green–purple ===== */
+    :root{
+      --bg:#ffffff;         /* white */
+      --text:#111827;       /* nearly black */
+      --muted:#6b7280;      /* gray-500 */
+      --surface:#f9fafb;    /* gray-50 */
+      --border:#e5e7eb;     /* gray-200 */
+      --green:#10b981;      /* emerald-500 */
+      --green-600:#059669;  /* emerald-600 */
+      --purple:#7c3aed;     /* violet-600 */
+      --purple-700:#6d28d9; /* violet-700 */
+      --shadow:0 6px 20px rgba(124,58,237,.12); /* soft purple shadow */
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;background:var(--bg);color:var(--text);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif; line-height:1.6
+    }
+    a{color:var(--purple); text-decoration:none; transition:color .2s ease}
+    a:hover{color:var(--green)}
     .wrap{max-width:980px;margin:0 auto;padding:24px}
-    header{padding:64px 0;text-align:center}
-    .kicker{color:var(--acc);font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+    header{padding:60px 0;text-align:center}
+    .kicker{color:var(--green);font-weight:700;letter-spacing:.08em;text-transform:uppercase}
     h1{font-size:clamp(28px,5vw,48px);margin:.4em 0}
     .sub{color:var(--muted);font-size:1.125rem}
-    .cta{margin-top:24px;display:inline-block;background:var(--acc);color:#0b1220;padding:14px 22px;border-radius:14px;font-weight:700}
+    .cta{
+      margin-top:22px;display:inline-block;
+      background:linear-gradient(135deg,var(--purple),var(--green));
+      color:white;padding:14px 22px;border-radius:14px;font-weight:800;
+      box-shadow:var(--shadow); transition:transform .15s ease, filter .15s ease
+    }
+    .cta:hover{transform:translateY(-1px); filter:saturate(1.15)}
+    .cta:active{transform:translateY(0)}
     .grid{display:grid;gap:16px}
     @media(min-width:900px){ .grid-3{grid-template-columns:repeat(3,1fr)} .grid-2{grid-template-columns:1fr 1fr} }
-    section{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:20px}
-    h2{margin:0 0 12px;font-size:1.5rem}
-    .card{background:var(--card);border-radius:16px;padding:16px;border:1px solid rgba(255,255,255,.06)}
+    section{
+      background:var(--surface); border:1px solid var(--border); border-radius:18px;
+      padding:20px; box-shadow:0 1px 0 rgba(17,24,39,.02)
+    }
+    h2{margin:0 0 12px;font-size:1.4rem}
+    .card{background:white;border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
     .muted{color:var(--muted)}
-    .agenda-item{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px dashed rgba(255,255,255,.1)}
+    .agenda-item{
+      display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px dashed var(--border);
+      transition:background .15s ease, border-color .2s ease
+    }
     .agenda-item:last-child{border-bottom:0}
-    .time{min-width:86px;font-variant-numeric:tabular-nums;color:var(--muted)}
-    footer{color:var(--muted);text-align:center;padding:24px 0}
-    .badge{display:inline-block;padding:4px 10px;border:1px solid rgba(255,255,255,.12);border-radius:999px;font-size:.85rem;color:var(--muted)}
+    .agenda-item:hover{background:#f3f4f6;border-color:var(--green)}
+    .time{min-width:86px;font-variant-numeric:tabular-nums;color:var(--purple);font-weight:700}
+    footer{color:var(--muted);text-align:center;padding:28px 0}
+    .badge{display:inline-block;padding:4px 10px;border:1px solid var(--border);border-radius:999px;font-size:.85rem;color:var(--muted)}
     .loc{display:flex;gap:12px;align-items:center}
-    .loc svg{opacity:.8}
-    /* Speakers: stacked one-by-one with photo + text */
-    .speaker{display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:start;padding:14px 0;border-bottom:1px dashed rgba(255,255,255,.1)}
+    .loc svg{color:var(--purple)}
+    /* ===== Speakers (stacked) ===== */
+    .speaker{
+      position:relative; display:grid; grid-template-columns:96px 1fr; gap:14px; align-items:start;
+      padding:14px 0; border-bottom:1px dashed var(--border); cursor:default
+    }
     .speaker:last-child{border-bottom:0}
-    .avatar{width:96px;height:96px;border-radius:12px;object-fit:cover;background:#0b1220;border:1px solid rgba(255,255,255,.08)}
-    .speaker h3{margin:0 0 4px;font-size:1.1rem}
-    .tag{display:inline-block;margin-left:8px;padding:2px 8px;border:1px solid rgba(255,255,255,.12);border-radius:999px;font-size:.8rem;color:var(--muted)}
+    .avatar{width:96px;height:96px;border-radius:12px;object-fit:cover;background:#eef2ff;border:1px solid var(--border)}
+    .speaker h3{margin:0 0 6px;font-size:1.1rem}
+    .tag{display:inline-block;margin-left:8px;padding:2px 8px;border:1px solid var(--border);border-radius:999px;font-size:.8rem;color:var(--muted)}
+    .talk{color:var(--green-600);font-weight:600}
+    .bio{
+      max-height:0; overflow:hidden; transition:max-height .3s ease, opacity .25s ease; opacity:.0
+    }
+    .speaker:hover .bio{ max-height:200px; opacity:1 }
+    /* Click-to-toggle (for touch): */
+    .speaker .toggle{display:inline-block;margin-top:6px;font-size:.9rem;color:var(--purple);user-select:none}
+    .speaker.open .bio{ max-height:200px; opacity:1 }
+    /* Social row */
+    .social-list{display:flex;flex-wrap:wrap;gap:10px}
+    .social{
+      display:flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid var(--border);border-radius:999px;background:white;
+      transition:transform .15s ease, border-color .2s ease, color .2s ease; box-shadow:var(--shadow)
+    }
+    .social:hover{transform:translateY(-1px); border-color:var(--purple); color:var(--green)}
+    .social svg{width:18px;height:18px}
+    /* Tiny helper badges */
+    .pill{display:inline-block;padding:3px 10px;border-radius:999px;background:#eefbf5;color:#065f46;border:1px solid #a7f3d0;font-size:.8rem}
   </style>
 </head>
 <body>
@@ -58,7 +110,7 @@
       <section>
         <h2>Where & when</h2>
         <div class="card loc">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
           <div>
             <div><strong>AGH Faculty of Computer Science — Building D-17</strong></div>
             <div class="muted">On-site meetup • Room info to be announced</div>
@@ -91,33 +143,35 @@
       <h2>Speakers</h2>
 
       <!-- Duplicate/modify the speaker blocks below. Replace avatar src with your photos in /assets/ -->
-      <div class="speaker">
+      <div class="speaker" onclick="this.classList.toggle('open')">
         <img class="avatar" src="assets/speakers/jane-doe.jpg" alt="Jane Doe headshot" />
         <div>
           <h3>Jane Doe <span class="tag">Institute / Company</span></h3>
-          <div class="muted">Talk: Reproducible pipelines for variant calling</div>
-          <p>Short bio/description about the speaker. Two–three sentences about experience, current role, and interests.</p>
+          <div class="talk">Reproducible pipelines for variant calling</div>
+          <p class="bio">Jane leads the Genomics Platform at Example Institute. She focuses on scalable workflow orchestration, FAIR data, and training programs for clinical labs.</p>
+          <span class="toggle">Hover or tap to expand bio</span>
         </div>
       </div>
 
-      <div class="speaker">
+      <div class="speaker" onclick="this.classList.toggle('open')">
         <img class="avatar" src="assets/speakers/john-smith.jpg" alt="John Smith headshot" />
         <div>
           <h3>John Smith <span class="tag">Lab / Team</span></h3>
-          <div class="muted">Talk: GPU-accelerated alignment at scale</div>
-          <p>Short bio/description about the speaker. Add achievements, projects, or areas of focus.</p>
+          <div class="talk">GPU-accelerated alignment at scale</div>
+          <p class="bio">John builds high-throughput alignment systems and maintains several open-source CUDA kernels for NGS analytics across cloud and on-prem clusters.</p>
+          <span class="toggle">Hover or tap to expand bio</span>
         </div>
       </div>
 
-      <div class="speaker">
+      <div class="speaker" onclick="this.classList.toggle('open')">
         <img class="avatar" src="assets/speakers/alex-lee.jpg" alt="Alex Lee headshot" />
         <div>
           <h3>Alex Lee <span class="tag">Organization</span></h3>
-          <div class="muted">Talk: Practical QC for multi-omics data</div>
-          <p>Short bio/description about the speaker. Add links if needed and keep it concise.</p>
+          <div class="talk">Practical QC for multi-omics data</div>
+          <p class="bio">Alex focuses on robust QC strategies for heterogeneous omics cohorts, with an emphasis on reproducibility, metadata standards, and automation.</p>
+          <span class="toggle">Hover or tap to expand bio</span>
         </div>
       </div>
-
       <!-- Add more speakers as needed -->
     </section>
 
@@ -131,7 +185,34 @@
           <li><strong>Panelists:</strong> 3–5 guests (industry, academia, public sector)</li>
           <li><strong>Key questions:</strong> data standards, reproducibility, compute costs, and collaboration models.</li>
         </ul>
-        <p class="muted">Want to suggest a panelist or a question? Email us at <a href="mailto:contact@yourmeetup.org">contact@yourmeetup.org</a>.</p>
+        <p class="muted">Suggest a panelist or question: <a href="mailto:contact@yourmeetup.org">contact@yourmeetup.org</a></p>
+      </div>
+    </section>
+
+    <!-- ===== Social media section ===== -->
+    <section style="margin-top:16px;">
+      <h2>Follow & share</h2>
+      <div class="card">
+        <div class="social-list">
+          <a class="social" href="https://twitter.com/bioinfo_meetup" target="_blank" rel="noopener" aria-label="X / Twitter">
+            <!-- X/Twitter -->
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2H21l-6.545 7.48L22.5 22h-6.873l-5.376-6.73L3.9 22H1.14l7.017-8.008L1 2h7.03l4.86 6.164L18.244 2Zm-1.2 18h1.879L7.05 4H5.094l11.95 16Z"/></svg>
+            <span>@bioinfo_meetup</span>
+          </a>
+          <a class="social" href="https://www.linkedin.com/company/YOUR-PAGE" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.64h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.33c0-1.27-.02-2.9-1.77-2.9-1.78 0-2.05 1.38-2.05 2.8V21h-4V9Z"/></svg>
+            <span>LinkedIn</span>
+          </a>
+          <a class="social" href="https://github.com/YOUR-ORG" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12.4c0 5.27 3.44 9.74 8.2 11.32.6.11.82-.26.82-.58v-2.2c-3.34.75-4.04-1.43-4.04-1.43-.55-1.43-1.33-1.8-1.33-1.8-1.09-.77.08-.76.08-.76 1.2.09 1.84 1.26 1.84 1.26 1.07 1.9 2.82 1.35 3.5 1.03.11-.79.42-1.35.76-1.66-2.67-.31-5.47-1.35-5.47-6 0-1.33.47-2.41 1.24-3.26-.13-.31-.54-1.57.12-3.27 0 0 1.01-.33 3.32 1.24a11.5 11.5 0 0 1 6.04 0c2.3-1.57 3.31-1.24 3.31-1.24.66 1.7.25 2.96.12 3.27.77.85 1.24 1.93 1.24 3.26 0 4.66-2.8 5.68-5.47 6 .43.36.82 1.06.82 2.14v3.18c0 .32.22.7.83.58A11.5 11.5 0 0 0 23.5 12.4C23.5 5.93 18.27.5 12 .5Z"/></svg>
+            <span>GitHub</span>
+          </a>
+          <a class="social" href="https://youtube.com/@YOUR-CHANNEL" target="_blank" rel="noopener" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 7.6s-.23-1.62-.93-2.33c-.89-.93-1.9-.94-2.36-.99C16.98 4 12 4 12 4h-.01s-4.98 0-8.21.28c-.46.05-1.47.06-2.36.99C.73 5.98.5 7.6.5 7.6S.27 9.47.27 11.34v1.33c0 1.87.23 3.74.23 3.74s.23 1.62.93 2.33c.89.93 2.06.9 2.58 1 1.87.19 7.99.25 8 .25s4.98-.01 8.21-.29c.46-.05 1.47-.06 2.36-.99.7-.7.93-2.33.93-2.33s.23-1.87.23-3.74v-1.33c0-1.87-.23-3.74-.23-3.74ZM9.75 9.75l6.5 3.25-6.5 3.25v-6.5Z"/></svg>
+            <span>YouTube</span>
+          </a>
+        </div>
+        <p style="margin-top:12px" class="muted">Tag us and share photos. <span class="pill">#BioinfoMeetup</span></p>
       </div>
     </section>
 
@@ -140,8 +221,6 @@
       <div class="card">
         <p><strong>AGH Faculty of Computer Science — Building D-17</strong></p>
         <p class="muted">Wayfinding and room details will be announced closer to the date.</p>
-        <!-- If you have a map, place a link or an embedded static image here -->
-        <!-- <img src="assets/map-d17.png" alt="Map to AGH D-17" style="width:100%;border-radius:12px;border:1px solid rgba(255,255,255,.08)" /> -->
       </div>
     </section>
 
@@ -156,5 +235,19 @@
       © 2025 Bioinformatics Community Meetup • <a href="#privacy">Privacy</a>
     </footer>
   </div>
+
+  <!-- No external libs; tiny JS just to ensure tapping a speaker toggles bio on touch devices -->
+  <script>
+    // If device is touch-capable, keep 'open' class on tap; otherwise hover handles it via CSS.
+    document.querySelectorAll('.speaker').forEach(s => {
+      s.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); s.classList.toggle('open'); }});
+      s.tabIndex = 0; // keyboard focusable
+      s.setAttribute('aria-expanded','false');
+      s.addEventListener('click', () => {
+        const isOpen = s.classList.toggle('open');
+        s.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      }, {passive:true});
+    });
+  </script>
 </body>
 </html>
